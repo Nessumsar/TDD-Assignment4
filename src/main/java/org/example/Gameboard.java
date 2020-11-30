@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Random;
+
 public class Gameboard extends Subject implements IGameboard{
 
     String arr[][] = new String[6][7];
@@ -22,13 +24,18 @@ public class Gameboard extends Subject implements IGameboard{
     }
 
     @Override
-    public String getStylishBoard() {
-        return null;
+    public void getStylishBoard() {
+
     }
 
     @Override
-    public String decideStartingPlayer() {
-        return null;
+    public void decideStartingPlayer() {
+        Random random = new Random();
+        int value = random.nextInt(2);
+        if (value == 1){
+            currentPlayer = "X";
+        }
+        currentPlayer = "O";
     }
 
     @Override
@@ -37,8 +44,8 @@ public class Gameboard extends Subject implements IGameboard{
     }
 
     @Override
-    public String changePlayer() {
-        return null;
+    public void changePlayer() {
+        currentPlayer = currentPlayer.equals("X") ? "O" : "X";
     }
 
     @Override
