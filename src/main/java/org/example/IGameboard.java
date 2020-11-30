@@ -16,13 +16,13 @@ public interface IGameboard {
     boolean placeMarker(String player, int row);
 
     //Converts array to nice looking board
-    String getStylishBoard();
+    void getStylishBoard();
 
-    String decideStartingPlayer();
+    void decideStartingPlayer();
 
     String evaluateWin();
 
-    String changePlayer();
+    void changePlayer();
 
     String announceFinalWinner();
 }
