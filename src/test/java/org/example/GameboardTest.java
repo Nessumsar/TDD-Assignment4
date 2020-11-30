@@ -27,31 +27,31 @@ public class GameboardTest
         String[][] expectedArr = new String[6][7];
         expectedArr[0][0] = "x";
 
-        Assertions.assertTrue(gameboard.placeMarker("X", 1));
+        Assertions.assertTrue(gameboard.placeMarker("X", "1"));
         Assertions.assertArrayEquals(expectedArr, gameboard.getBoard());
     }
 
     @Test
     void testFailPlaceMarker(){
-        gameboard.placeMarker("X", 1);
-        Assertions.assertFalse(gameboard.placeMarker("X", 1));
+        gameboard.placeMarker("X", "1");
+        Assertions.assertFalse(gameboard.placeMarker("X", "1"));
     }
 
     @Test
     void testPlaceMarkerOnNonExistingRow(){
         String[][] expectedArr = new String[6][7];
 
-        Assertions.assertFalse(gameboard.placeMarker("X", 99));
+        Assertions.assertFalse(gameboard.placeMarker("X", "99"));
         Assertions.assertArrayEquals(expectedArr, gameboard.getBoard());
     }
 
     @Test
     void testPlaceMarkerAndWin(){
 
-        gameboard.placeMarker("X", 1);
-        gameboard.placeMarker("X", 2);
-        gameboard.placeMarker("X", 3);
-        gameboard.placeMarker("X", 4);
+        gameboard.placeMarker("X", "1");
+        gameboard.placeMarker("X", "2");
+        gameboard.placeMarker("X", "3");
+        gameboard.placeMarker("X", "4");
         Assertions.assertEquals("X", gameboard.evaluateWin());
     }
 
