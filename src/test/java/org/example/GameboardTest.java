@@ -24,16 +24,25 @@ public class GameboardTest
 
     @Test
     void testSuccessPlaceMarker(){
+        String[][] expectedArr = new String[6][7];
+        expectedArr[0][0] = "x";
 
-
-        Assertions.assertEquals(true, gameboard.placeMarker("X", 1));
+        Assertions.assertTrue(gameboard.placeMarker("X", 1));
+        Assertions.assertArrayEquals(expectedArr, gameboard.getBoard());
     }
 
     @Test
     void testFailPlaceMarker(){
-
         gameboard.placeMarker("X", 1);
-        Assertions.assertEquals(false, gameboard.placeMarker("X", 1));
+        Assertions.assertFalse(gameboard.placeMarker("X", 1));
+    }
+
+    @Test
+    void testPlaceMarkerOnNonExistingRow(){
+        String[][] expectedArr = new String[6][7];
+
+        Assertions.assertFalse(gameboard.placeMarker("X", 99));
+        Assertions.assertArrayEquals(expectedArr, gameboard.getBoard());
     }
 
     @Test
@@ -51,6 +60,13 @@ public class GameboardTest
 
         Assertions.assertEquals("X", gameboard.announceFinalWinner());
     }
+
+    @Test
+    void testStartingPlayer(){
+        gameboard.decideStartingPlayer();
+        Assertions.assertNotNull(gameboard.currentPlayer);
+    }
+
 
 
 
