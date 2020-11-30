@@ -13,7 +13,7 @@ public interface IGameboard {
      * @param row, player
      * @return Successful update = true, unsuccessful = false.
      */
-    boolean placeMarker(String player, int row);
+    boolean placeMarker(String player, String row);
 
     //Converts array to nice looking board
     void getStylishBoard();
