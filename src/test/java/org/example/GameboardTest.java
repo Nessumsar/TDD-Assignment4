@@ -67,6 +67,20 @@ public class GameboardTest
         Assertions.assertNotNull(gameboard.currentPlayer);
     }
 
+    @Test
+    void testChangePlayer(){
+        gameboard.decideStartingPlayer();
+        String expected = gameboard.currentPlayer;
+        gameboard.changePlayer();
+
+        if(expected.equals("X")){
+            expected = "O";
+        }else if(expected.equals("O")){
+            expected = "X";
+        }
+
+        Assertions.assertEquals(expected, gameboard.currentPlayer);
+    }
 
 
 
