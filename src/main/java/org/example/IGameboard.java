@@ -1,6 +1,7 @@
 package org.example;
 
 public interface IGameboard {
+
     /**
      * Get current gameboard
      * @return Gameboard Array.
@@ -19,9 +20,9 @@ public interface IGameboard {
 
     String decideStartingPlayer();
 
-    boolean evaluateWin();
+    String evaluateWin();
 
-    void changePlayer();
+    String changePlayer();
 
-    void announceFinalWinner();
+    String announceFinalWinner();
 }

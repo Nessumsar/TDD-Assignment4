@@ -1,13 +1,15 @@
 package org.example;
 
-import java.lang.reflect.Array;
-
 public class Gameboard extends Subject implements IGameboard{
 
     String arr[][] = new String[6][7];
-    int rounds = 0;
-    String player = null;
+    String currentPlayer = null;
 
+    RoundCounter counter;
+
+    public Gameboard(RoundCounter counter) {
+        this.counter = counter;
+    }
 
     @Override
     public String[][] getBoard() {
@@ -30,18 +32,18 @@ public class Gameboard extends Subject implements IGameboard{
     }
 
     @Override
-    public boolean evaluateWin() {
-        return false;
+    public String evaluateWin() {
+        return null;
     }
 
     @Override
-    public void changePlayer() {
-
+    public String changePlayer() {
+        return null;
     }
 
     @Override
-    public void announceFinalWinner() {
-
+    public String announceFinalWinner() {
+        return null;
     }
 
 
