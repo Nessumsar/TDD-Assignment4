@@ -4,13 +4,21 @@ import java.util.Random;
 
 public class Gameboard extends Subject implements IGameboard{
 
-    String arr[][] = new String[6][7];
+    String[][] arr;
     String currentPlayer = null;
 
     RoundCounter counter;
 
     public Gameboard(RoundCounter counter) {
         this.counter = counter;
+        arr =   new String[][]{
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "}
+        };
     }
 
     @Override
@@ -45,6 +53,19 @@ public class Gameboard extends Subject implements IGameboard{
 
     @Override
     public String evaluateWin() {
+        int rows = arr.length;
+        int cols = arr[0].length;
+        //Horizontal
+        for(int i = 0; i<rows; i++){
+            for(int y = 0; y < cols; y++){
+                if(arr[i][y].equals("X") && arr[i][y + 1].equals("X") && arr[i][y + 2].equals("X") && arr[i][y + 3].equals("X")){
+                    return "X";
+                }
+                if(arr[i][y].equals("Y") && arr[i][y + 1].equals("Y") && arr[i][y + 2].equals("Y") && arr[i][y + 3].equals("Y")){
+                    return "Y";
+                }
+            }
+        }
         return null;
     }
 
