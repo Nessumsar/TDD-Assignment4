@@ -20,6 +20,11 @@ public class Gameboard extends Subject implements IGameboard{
 
     @Override
     public boolean placeMarker(String player, String row) {
+
+
+
+
+        Notify(player, row);
         return false;
     }
 
