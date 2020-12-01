@@ -70,7 +70,7 @@ public class GameboardTest
     }
 
     @Test
-    void testDiagonalEvaluationOfWin(){
+    void testAscendingDiagonalEvaluationOfWin(){
         String mockArr[][] = {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -78,6 +78,20 @@ public class GameboardTest
                 {null, null, null, "X", "X", null, null},
                 {null, null, "X", "O", "O", "O", null},
                 {null, "X", "O", "O", "X", "O", null},
+        };
+        gameboard.arr = mockArr;
+        Assertions.assertEquals("x", gameboard.evaluateWin());
+    }
+
+    @Test
+    void testDescendingDiagonalEvaluationOfWin(){
+        String mockArr[][] = {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {"X", null, null, null, "X", null, null},
+                {"O", "X", null, "O", "X", null, null},
+                {"O", "O", "X", "O", "O", "O", null},
+                {"O", "O", "O", "X", "X", "O", null},
         };
         gameboard.arr = mockArr;
         Assertions.assertEquals("x", gameboard.evaluateWin());
