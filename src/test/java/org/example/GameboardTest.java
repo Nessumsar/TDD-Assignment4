@@ -72,32 +72,23 @@ public class GameboardTest
         gameboard.decideStartingPlayer();
         String expected = gameboard.currentPlayer;
         gameboard.changePlayer();
-
-        if(expected.equals("X")){
-            expected = "O";
-        }else if(expected.equals("O")){
-            expected = "X";
-        }
-
-        Assertions.assertEquals(expected, gameboard.currentPlayer);
+        Assertions.assertEquals(expected.equals("X") ? "O" : "X", gameboard.currentPlayer);
     }
 
 
-
-
-/*  Test here or in another test class?
-
     @Test
-    void testGetPlayedRounds(){
-
-
+    void testGetCurrentRoundOnInit(){
+        Assertions.assertEquals(1, gameboard.counter.getCurrentRound());
     }
 
     @Test
-    void testNextRoundOnWin(){
-
+    void testCurrentRoundAfterWinOrDraw(){
+        gameboard.placeMarker("X", "1");
+        gameboard.placeMarker("X", "2");
+        gameboard.placeMarker("X", "3");
+        gameboard.placeMarker("X", "4");
+        Assertions.assertEquals(2, gameboard.counter.getCurrentRound());
     }
 
- */
 
 }
