@@ -66,6 +66,18 @@ public class Gameboard extends Subject implements IGameboard{
                 }
             }
         }
+        //Vertical
+        for(int i = 0; i<cols; i++){
+            for(int y = 0; y < rows; y++){
+                if(arr[i][y].equals("X") && arr[i + 1][y].equals("X") && arr[i + 2][y].equals("X") && arr[i + 3][y].equals("X")){
+                    return "X";
+                }
+                if(arr[i][y].equals("O") && arr[i + 1][y].equals("O") && arr[i + 2][y].equals("O") && arr[i + 3][y].equals("O")){
+                    return "O";
+                }
+            }
+        }
+
         return null;
     }
 
