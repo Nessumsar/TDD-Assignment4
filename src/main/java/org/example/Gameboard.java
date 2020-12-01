@@ -61,8 +61,8 @@ public class Gameboard extends Subject implements IGameboard{
                 if(arr[i][y].equals("X") && arr[i][y + 1].equals("X") && arr[i][y + 2].equals("X") && arr[i][y + 3].equals("X")){
                     return "X";
                 }
-                if(arr[i][y].equals("Y") && arr[i][y + 1].equals("Y") && arr[i][y + 2].equals("Y") && arr[i][y + 3].equals("Y")){
-                    return "Y";
+                if(arr[i][y].equals("O") && arr[i][y + 1].equals("O") && arr[i][y + 2].equals("O") && arr[i][y + 3].equals("O")){
+                    return "O";
                 }
             }
         }
