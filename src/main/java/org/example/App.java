@@ -7,23 +7,26 @@ public class App
     public static void main( String[] args )
     {
         boolean keepPlaying = true;
+
         System.out.println("Hello and welcome to 4 in a row. How many rounds would you like to play?");
         Scanner sc = new Scanner(System.in);
         int input = sc.nextInt();
+        GameboardObserver observer = new GameboardObserver();
         RoundCounter counter = new RoundCounter(input);
         Gameboard gameboard = new Gameboard(counter);
+        gameboard.Attach(observer);
 
         System.out.println("Lets begin.");
         gameboard.decideStartingPlayer();
         // player1.equals("X") ? "O" : "X";
         System.out.println(gameboard.currentPlayer + " will start.");
 
-        for(int i=0; i<gameboard.counter.currentRound; i++){
+        for(int i=0; i<=gameboard.counter.getMaxRounds(); i++){
             while (keepPlaying){
                 System.out.println("Place your marker in a row between 1-7");
                 String row = sc.next();
                 int parsed = Integer.parseInt(row);
-
+                gameboard.placeMarker(gameboard.currentPlayer, row);
             }
         }
 /*      loop round
