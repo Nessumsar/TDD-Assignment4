@@ -3,12 +3,6 @@ package org.example;
 public interface IGameboard {
 
     /**
-     * Get current gameboard
-     * @return Gameboard Array.
-     */
-    String[][] getBoard();
-
-    /**
      * Update gameboard on requested row
      * @param row, player
      * @return Successful update = true, unsuccessful = false.

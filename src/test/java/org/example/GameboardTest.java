@@ -24,16 +24,29 @@ public class GameboardTest
 
     @Test
     void testSuccessPlaceMarker(){
-        String[][] expectedArr = new String[6][7];
-        expectedArr[0][0] = "x";
+        String mockArr[][] = {
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {"X", " ", " ", " ", " ", " ", " "},
+        };
 
         Assertions.assertTrue(gameboard.placeMarker("X", "1"));
-        Assertions.assertArrayEquals(expectedArr, gameboard.getBoard());
+        Assertions.assertArrayEquals(mockArr, gameboard.arr);
     }
+
 
     @Test
     void testFailPlaceMarker(){
         gameboard.placeMarker("X", "1");
+        gameboard.placeMarker("X", "1");
+        gameboard.placeMarker("X", "1");
+        gameboard.placeMarker("X", "1");
+        gameboard.placeMarker("X", "1");
+        gameboard.placeMarker("X", "1");
+
         Assertions.assertFalse(gameboard.placeMarker("X", "1"));
     }
 
@@ -41,8 +54,7 @@ public class GameboardTest
     void testPlaceMarkerOnNonExistingRow(){
         String[][] expectedArr = new String[6][7];
 
-        Assertions.assertFalse(gameboard.placeMarker("X", "99"));
-        Assertions.assertArrayEquals(expectedArr, gameboard.getBoard());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> gameboard.placeMarker("X", "8"));
     }
 
     @Test

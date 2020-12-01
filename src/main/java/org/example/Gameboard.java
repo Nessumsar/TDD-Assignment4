@@ -12,27 +12,40 @@ public class Gameboard extends Subject implements IGameboard{
     public Gameboard(RoundCounter counter) {
         this.counter = counter;
         arr =   new String[][]{
-            {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " "}
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
         };
     }
 
     @Override
-    public String[][] getBoard() {
-        return new String[0][];
-    }
-
-    @Override
     public boolean placeMarker(String player, String row) {
+        int rows = arr[0].length;
+        int cols = arr.length;
+        int rowToPlace;
 
+        try{
+            rowToPlace = Integer.parseInt(row);
+        }catch(Exception e){
+            throw new IllegalArgumentException();
+        }
 
+        if(rowToPlace > rows || rowToPlace < 1){
+            throw new IllegalArgumentException();
+        }
+        rowToPlace--;
 
+        for(int i = cols - 1; i > 0; i--){
+            if(arr[i][rowToPlace].equals(" ")){
+                arr[i][rowToPlace] = player;
+                Notify(player, row);
+                return true;
+            }
+        }
 
-        Notify(player, row);
         return false;
     }
 
@@ -88,7 +101,13 @@ public class Gameboard extends Subject implements IGameboard{
 
     @Override
     public String announceFinalWinner() {
-        return null;
+        if (counter.getScoreO() > counter.getScoreX()){
+            return "O";
+        }else if (counter.getScoreO() < counter.getScoreX()){
+            return "X";
+        }else{
+            return "Draw";
+        }
     }
 
 
