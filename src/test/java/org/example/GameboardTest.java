@@ -1,5 +1,6 @@
 package org.example;
 
+import net.bytebuddy.build.ToStringPlugin;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,26 +53,13 @@ public class GameboardTest
 
     @Test
     void testPlaceMarkerOnNonExistingRow(){
-        String[][] expectedArr = new String[6][7];
-
         Assertions.assertFalse(gameboard.placeMarker("X", "8"));
     }
 
     @Test
     void testPlaceMarkerOnFalsePlayer(){
-        String[][] expectedArr = new String[6][7];
         Assertions.assertFalse(gameboard.placeMarker("o", "5"));
         Assertions.assertFalse(gameboard.placeMarker("x", "5"));
-    }
-
-    @Test
-    void testPlaceMarkerAndWin(){
-
-        gameboard.placeMarker("X", "1");
-        gameboard.placeMarker("X", "2");
-        gameboard.placeMarker("X", "3");
-        gameboard.placeMarker("X", "4");
-        Assertions.assertEquals("X", gameboard.evaluateWin());
     }
 
     @Test
@@ -94,9 +82,9 @@ public class GameboardTest
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", " ", "O", " ", " "},
-                {" ",  " ", " ", "O", "X", " ", " "},
-                {" ",  " ", "O", "X", "x", "O",  " "},
-                { " ", "O", "X", "x", "X", "O",  " "},
+                {" ", " ", " ", "O", "X", " ", " "},
+                {" ", " ", "O", "X", "x", "O", " "},
+                {" ", "O", "X", "x", "X", "O", " "},
         };
 ;
         gameboard.arr = mockArr;
@@ -108,7 +96,7 @@ public class GameboardTest
         String mockArr[][] = {
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", " ", " ", " ", " "},
-                {"X"," ", " ", " ", "X"," ", " "},
+                {"X", " ", " ", " ", "X", " ", " "},
                 {"O", "X", " ", "O", "X", " ", " "},
                 {"O", "O", "X", "O", "O", "O", " "},
                 {"O", "O", "O", "X", "X", "O", " "},
