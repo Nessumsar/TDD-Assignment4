@@ -44,6 +44,8 @@ public class Gameboard extends Subject implements IGameboard{
         for(int i = cols - 1; i > 0; i--){
             if(arr[i][rowToPlace].equals(" ")){
                 arr[i][rowToPlace] = player;
+                // row = 1 ----- rowToPlace = 5,0 ---- ändra till 1,1 om längst ner i rad 1
+                //alternativt skicka in stylishBoard
                 Notify(player, i + "," + rowToPlace);
                 return true;
             }
@@ -54,9 +56,8 @@ public class Gameboard extends Subject implements IGameboard{
 
     @Override
     public void getStylishBoard() {
-        int rows = arr.length;
-        for (int i=0; i<rows; i++){
-            String separatedArr = Arrays.toString(arr[i]);
+        for (String[] rows : arr) {
+            String separatedArr = Arrays.toString(rows);
             separatedArr = separatedArr.replace(",", "|");
             System.out.println(separatedArr);
         }
@@ -77,6 +78,7 @@ public class Gameboard extends Subject implements IGameboard{
         int rows = arr.length - 1 ;
         int cols = arr[0].length - 1;
         String ret = " ";
+        //Horizontal
         for(int y = 0; y<rows-3; y++){
             for(int i = 0; i < cols ; i++){
                 if(arr[i][y].equals("X") && arr[i][y + 1].equals("X") && arr[i][y + 2].equals("X") && arr[i][y + 3].equals("X")){
@@ -121,13 +123,36 @@ public class Gameboard extends Subject implements IGameboard{
             }
         }
 
+        if (ret.equals(" ")){
+                int markCounter = 1;
+                for (String marker : arr[0]){
+                    if (marker.equals("X") || marker.equals("O")) {
+                        markCounter++;
+                    }
+                    if (markCounter == arr.length) {
+                        ret = "Draw";
+                        Notify("DRAW", "Round " + counter.getCurrentRound() + " is a draw. The score is: X " + counter.getScoreX() + "-" + counter.getScoreO() + " O");
+                        counter.setCurrentRound();
+                        resetBoard();
+                    }
+                }
+        }
+
+
         if(ret.equals("X")){
             counter.setScoreX(counter.getScoreX() + 1);
+            Notify("X", "Wins round " + counter.getCurrentRound() + ". The score is: X " + counter.getScoreX() + "-" + counter.getScoreO() + " O");
+            counter.setCurrentRound();
+            resetBoard();
+
         }
         if(ret.equals("O")){
             counter.setScoreO(counter.getScoreO() + 1);
+            Notify("O", "Wins round " + counter.getCurrentRound() + ". The score is: X " + counter.getScoreX() + "-" + counter.getScoreO() + " O");
+            counter.setCurrentRound();
+            resetBoard();
         }
-        counter.setCurrentRound();
+
         return ret;
     }
 
@@ -147,5 +172,16 @@ public class Gameboard extends Subject implements IGameboard{
         }
     }
 
+    @Override
+    public void resetBoard(){
+        arr =   new String[][]{
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+        };
+    }
 
 }

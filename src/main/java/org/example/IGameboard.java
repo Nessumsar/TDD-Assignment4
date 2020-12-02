@@ -19,4 +19,6 @@ public interface IGameboard {
     void changePlayer();
 
     String announceFinalWinner();
+
+    void resetBoard();
 }
