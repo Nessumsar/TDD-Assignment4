@@ -54,7 +54,14 @@ public class GameboardTest
     void testPlaceMarkerOnNonExistingRow(){
         String[][] expectedArr = new String[6][7];
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> gameboard.placeMarker("X", "8"));
+        Assertions.assertFalse(gameboard.placeMarker("X", "8"));
+    }
+
+    @Test
+    void testPlaceMarkerOnFalsePlayer(){
+        String[][] expectedArr = new String[6][7];
+        Assertions.assertFalse(gameboard.placeMarker("o", "5"));
+        Assertions.assertFalse(gameboard.placeMarker("x", "5"));
     }
 
     @Test
@@ -86,13 +93,14 @@ public class GameboardTest
         String mockArr[][] = {
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", " ", " ", " ", " "},
-                {" ", " ", " ", " ", " ", " ", " "},
-                {" ",  " ", " ", "X", "X", " ", " "},
-                {" ",  " ", "X", "O", "O", "O",  " "},
-                { " ", "X", "O", "O", "X", "O",  " "},
+                {" ", " ", " ", " ", "O", " ", " "},
+                {" ",  " ", " ", "O", "X", " ", " "},
+                {" ",  " ", "O", "X", "x", "O",  " "},
+                { " ", "O", "X", "x", "X", "O",  " "},
         };
+;
         gameboard.arr = mockArr;
-        Assertions.assertEquals("x", gameboard.evaluateWin());
+        Assertions.assertEquals("O", gameboard.evaluateWin());
     }
 
     @Test
@@ -106,7 +114,7 @@ public class GameboardTest
                 {"O", "O", "O", "X", "X", "O", " "},
         };
         gameboard.arr = mockArr;
-        Assertions.assertEquals("x", gameboard.evaluateWin());
+        Assertions.assertEquals("X", gameboard.evaluateWin());
     }
 
     @Test
@@ -119,6 +127,7 @@ public class GameboardTest
                 {" ", " ", "X", "O", "O", "O", " "},
                 {" ", "x", "x", "O", "x", "O", " "},
         };
+
         gameboard.arr = mockArr;
         Assertions.assertEquals("O", gameboard.evaluateWin());
     }

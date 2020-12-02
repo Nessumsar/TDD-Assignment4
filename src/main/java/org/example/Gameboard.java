@@ -1,5 +1,6 @@
 package org.example;
 
+
 import java.util.Random;
 
 public class Gameboard extends Subject implements IGameboard{
@@ -30,18 +31,19 @@ public class Gameboard extends Subject implements IGameboard{
         try{
             rowToPlace = Integer.parseInt(row);
         }catch(Exception e){
-            throw new IllegalArgumentException();
+            return false;
         }
 
-        if(rowToPlace > rows || rowToPlace < 1){
-            throw new IllegalArgumentException();
+        if(rowToPlace > rows || rowToPlace < 1 ||
+                !player.equals("X") && !player.equals("O")){
+            return false;
         }
         rowToPlace--;
 
         for(int i = cols - 1; i > 0; i--){
             if(arr[i][rowToPlace].equals(" ")){
                 arr[i][rowToPlace] = player;
-                Notify(player, row);
+                Notify(player, i + "," + row);
                 return true;
             }
         }
@@ -66,32 +68,60 @@ public class Gameboard extends Subject implements IGameboard{
 
     @Override
     public String evaluateWin() {
-        int rows = arr.length;
-        int cols = arr[0].length;
-        //Horizontal
-        for(int i = 0; i<rows; i++){
-            for(int y = 0; y < cols; y++){
+        int rows = arr.length - 1 ;
+        int cols = arr[0].length - 1;
+        String ret = " ";
+        for(int y = 0; y<rows-3; y++){
+            for(int i = 0; i < cols ; i++){
                 if(arr[i][y].equals("X") && arr[i][y + 1].equals("X") && arr[i][y + 2].equals("X") && arr[i][y + 3].equals("X")){
-                    return "X";
+                    ret = "X";
                 }
                 if(arr[i][y].equals("O") && arr[i][y + 1].equals("O") && arr[i][y + 2].equals("O") && arr[i][y + 3].equals("O")){
-                    return "O";
+                    ret = "O";
                 }
             }
         }
         //Vertical
-        for(int i = 0; i<cols; i++){
+        for(int i = 0; i<cols-3; i++){
             for(int y = 0; y < rows; y++){
                 if(arr[i][y].equals("X") && arr[i + 1][y].equals("X") && arr[i + 2][y].equals("X") && arr[i + 3][y].equals("X")){
-                    return "X";
+                    ret = "X";
                 }
                 if(arr[i][y].equals("O") && arr[i + 1][y].equals("O") && arr[i + 2][y].equals("O") && arr[i + 3][y].equals("O")){
-                    return "O";
+                    ret = "O";
+                }
+            }
+        }
+        //Diagonal right
+        for(int i = 3; i< cols; i++){
+            for(int y = 0; y < rows - 3; y++){
+                if(arr[i][y].equals("X") && arr[i - 1][y + 1].equals("X") && arr[i - 2][y + 2].equals("X") && arr[i - 3][y + 3].equals("X")){
+                    ret = "X";
+                }
+                if(arr[i][y].equals("O") && arr[i - 1][y + 1].equals("O") && arr[i - 2][y + 2].equals("O") && arr[i - 3][y + 3].equals("O")){
+                    ret = "O";
+                }
+            }
+        }
+        //Diagonal left
+        for(int i = 3; i<cols; i++){
+            for(int y = 3; y < rows; y++){
+                if(arr[i][y].equals("X") && arr[i - 1][y - 1].equals("X") && arr[i - 2][y - 2].equals("X") && arr[i - 3][y - 3 ].equals("X")){
+                    ret = "X";
+                }
+                if(arr[i][y].equals("O") && arr[i - 1][y - 1].equals("O") && arr[i - 2][y - 2].equals("O") && arr[i - 3][y - 3].equals("O")){
+                    ret = "O";
                 }
             }
         }
 
-        return null;
+        if(ret.equals("X")){
+            counter.getScoreX();
+        }
+        if(ret.equals("0")){
+            counter.getScoreO();
+        }
+        return ret;
     }
 
     @Override
