@@ -43,7 +43,7 @@ public class Gameboard extends Subject implements IGameboard{
         for(int i = cols - 1; i > 0; i--){
             if(arr[i][rowToPlace].equals(" ")){
                 arr[i][rowToPlace] = player;
-                Notify(player, i + "," + row);
+                Notify(player, i + "," + rowToPlace);
                 return true;
             }
         }
