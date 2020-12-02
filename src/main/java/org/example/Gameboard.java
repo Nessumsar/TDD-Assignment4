@@ -122,11 +122,12 @@ public class Gameboard extends Subject implements IGameboard{
         }
 
         if(ret.equals("X")){
-            counter.getScoreX();
+            counter.setScoreX(counter.getScoreX() + 1);
         }
-        if(ret.equals("0")){
-            counter.getScoreO();
+        if(ret.equals("O")){
+            counter.setScoreO(counter.getScoreO() + 1);
         }
+        counter.setCurrentRound();
         return ret;
     }
 

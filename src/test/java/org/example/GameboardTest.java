@@ -134,8 +134,17 @@ public class GameboardTest
 
     @Test
     void testFinishGameOnWin(){
-
-        Assertions.assertEquals("X", gameboard.announceFinalWinner());
+        String mockArr[][] = {
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", "O", " ", " ", " "},
+                {" ", " ", " ", "O", " ", "X", " "},
+                {" ", " ", "X", "O", "O", "O", " "},
+                {" ", "x", "x", "O", "x", "O", " "},
+        };
+        gameboard.arr = mockArr;
+        gameboard.evaluateWin();
+        Assertions.assertEquals("O", gameboard.announceFinalWinner());
     }
 
     @Test
@@ -164,6 +173,7 @@ public class GameboardTest
         gameboard.placeMarker("X", "2");
         gameboard.placeMarker("X", "3");
         gameboard.placeMarker("X", "4");
+        gameboard.evaluateWin();
         Assertions.assertEquals(2, gameboard.counter.getCurrentRound());
     }
 
