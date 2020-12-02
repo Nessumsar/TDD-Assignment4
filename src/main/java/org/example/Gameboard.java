@@ -1,6 +1,7 @@
 package org.example;
 
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Gameboard extends Subject implements IGameboard{
@@ -53,7 +54,12 @@ public class Gameboard extends Subject implements IGameboard{
 
     @Override
     public void getStylishBoard() {
-
+        int rows = arr.length;
+        for (int i=0; i<rows; i++){
+            String separatedArr = Arrays.toString(arr[i]);
+            separatedArr = separatedArr.replace(",", "|");
+            System.out.println(separatedArr);
+        }
     }
 
     @Override
