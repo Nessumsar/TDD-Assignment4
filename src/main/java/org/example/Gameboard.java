@@ -41,12 +41,10 @@ public class Gameboard extends Subject implements IGameboard{
         }
         rowToPlace--;
 
-        for(int i = cols - 1; i > 0; i--){
+        for(int i = cols - 1; i >= 0; i--){
             if(arr[i][rowToPlace].equals(" ")){
                 arr[i][rowToPlace] = player;
-                // row = 1 ----- rowToPlace = 5,0 ---- ändra till 1,1 om längst ner i rad 1
-                //alternativt skicka in stylishBoard
-                Notify(counter.getCurrentRound(), player, i + "," + rowToPlace);
+                Notify(counter.getCurrentRound(), player,(cols - (i + 1)) + "," + (rowToPlace + 1));
                 return true;
             }
         }
