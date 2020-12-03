@@ -1,6 +1,5 @@
 package org.example;
 
-import net.bytebuddy.build.ToStringPlugin;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,11 +32,14 @@ public class GameboardTest
                 {" ", " ", " ", " ", " ", " ", " "},
                 {"X", " ", " ", " ", " ", " ", " "},
         };
-
         Assertions.assertTrue(gameboard.placeMarker("X", "1"));
         Assertions.assertArrayEquals(mockArr, gameboard.arr);
     }
 
+    @Test
+    void testFailPlaceMarkerOnLetterRow(){
+        Assertions.assertFalse(gameboard.placeMarker("X", "B"));
+    }
 
     @Test
     void testFailPlaceMarker(){
@@ -47,7 +49,6 @@ public class GameboardTest
         gameboard.placeMarker("X", "1");
         gameboard.placeMarker("X", "1");
         gameboard.placeMarker("X", "1");
-
         Assertions.assertFalse(gameboard.placeMarker("X", "1"));
     }
 
@@ -64,7 +65,7 @@ public class GameboardTest
 
     @Test
     void testHorizontalEvaluationOfWin(){
-        String mockArr[][] = {
+        gameboard.arr = new String[][]{
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", " ", " ", " ", " "},
@@ -72,13 +73,12 @@ public class GameboardTest
                 {" ", " ", " ", " ", "O", "O", " "},
                 {" ", "X", "X", "X", "X", "O", " "},
         };
-        gameboard.arr = mockArr;
         Assertions.assertEquals("X", gameboard.evaluateWin());
     }
 
     @Test
     void testAscendingDiagonalEvaluationOfWin(){
-        String mockArr[][] = {
+        gameboard.arr = new String[][]{
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", " ", "O", " ", " "},
@@ -86,14 +86,12 @@ public class GameboardTest
                 {" ", " ", "O", "X", "x", "O", " "},
                 {" ", "O", "X", "x", "X", "O", " "},
         };
-;
-        gameboard.arr = mockArr;
         Assertions.assertEquals("O", gameboard.evaluateWin());
     }
 
     @Test
     void testDescendingDiagonalEvaluationOfWin(){
-        String mockArr[][] = {
+        gameboard.arr = new String[][]{
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", " ", " ", " ", " "},
                 {"X", " ", " ", " ", "X", " ", " "},
@@ -101,13 +99,12 @@ public class GameboardTest
                 {"O", "O", "X", "O", "O", "O", " "},
                 {"O", "O", "O", "X", "X", "O", " "},
         };
-        gameboard.arr = mockArr;
         Assertions.assertEquals("X", gameboard.evaluateWin());
     }
 
     @Test
     void testVerticalEvaluationOfWin(){
-        String mockArr[][] = {
+        gameboard.arr = new String[][]{
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", " ", " ", " ", " "},
                 {" ", " ", " ", "O", " ", " ", " "},
@@ -115,24 +112,34 @@ public class GameboardTest
                 {" ", " ", "X", "O", "O", "O", " "},
                 {" ", "x", "x", "O", "x", "O", " "},
         };
-
-        gameboard.arr = mockArr;
         Assertions.assertEquals("O", gameboard.evaluateWin());
     }
 
     @Test
-    void testFinishGameOnWin(){
-        String mockArr[][] = {
-                {" ", " ", " ", " ", " ", " ", " "},
-                {" ", " ", " ", " ", " ", " ", " "},
-                {" ", " ", " ", "O", " ", " ", " "},
-                {" ", " ", " ", "O", " ", "X", " "},
-                {" ", " ", "X", "O", "O", "O", " "},
-                {" ", "x", "x", "O", "x", "O", " "},
-        };
-        gameboard.arr = mockArr;
-        gameboard.evaluateWin();
+    void testFinishGameOnWinForO(){
+        counter.setCurrentRound();
+        counter.setCurrentRound();
+        counter.setScoreO(2);
+        counter.setScoreX(1);
         Assertions.assertEquals("O", gameboard.announceFinalWinner());
+    }
+
+    @Test
+    void testFinishGameOnWinForX(){
+        counter.setCurrentRound();
+        counter.setCurrentRound();
+        counter.setScoreO(1);
+        counter.setScoreX(2);
+        Assertions.assertEquals("X", gameboard.announceFinalWinner());
+    }
+
+    @Test
+    void testFinishGameOnDraw(){
+        counter.setCurrentRound();
+        counter.setCurrentRound();
+        counter.setScoreO(1);
+        counter.setScoreX(1);
+        Assertions.assertEquals("Draw", gameboard.announceFinalWinner());
     }
 
     @Test
@@ -149,7 +156,6 @@ public class GameboardTest
         Assertions.assertEquals(expected.equals("X") ? "O" : "X", gameboard.currentPlayer);
     }
 
-
     @Test
     void testGetCurrentRoundOnInit(){
         Assertions.assertEquals(1, gameboard.counter.getCurrentRound());
@@ -163,6 +169,19 @@ public class GameboardTest
         gameboard.placeMarker("X", "4");
         gameboard.evaluateWin();
         Assertions.assertEquals(2, gameboard.counter.getCurrentRound());
+    }
+
+    @Test
+    void testEvaluateWinReturnsDraw(){
+        gameboard.arr = new String[][]{
+                {"O", "O", "O", "X", "O", "O", "X"},
+                {"O", "O", "X", "X", "X", "X", "O"},
+                {"X", "X", "O", "O", "O", "X", "O"},
+                {"O", "X", "X", "X", "O", "X", "X"},
+                {"X", "O", "X", "O", "O", "O", "X"},
+                {"O", "x", "x", "O", "x", "O", "X"},
+        };
+        Assertions.assertEquals("Draw", gameboard.evaluateWin());
     }
 
 

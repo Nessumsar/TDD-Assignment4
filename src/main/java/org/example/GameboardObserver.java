@@ -1,22 +1,28 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameboardObserver extends Observer {
 
     ArrayList<String> storage = new ArrayList<>();
 
     @Override
-    public void update(String player, String place) {
-        storage.add(player + " | " + place);
+    public void update(int round, String player, String place) {
+        storage.add("Round " + round + " |" + player + " | " + place);
         System.out.println(player + " | " + place);
     }
 
     @Override
     public void replayGame() {
-        Timer timer = new Timer();
         storage.forEach(System.out::println);
+    }
+
+    @Override
+    public void replayRound(int round) {
+        for (String s : storage){
+            if (s.contains("Round " + round)){
+                System.out.println(s);
+            }
+        }
     }
 }

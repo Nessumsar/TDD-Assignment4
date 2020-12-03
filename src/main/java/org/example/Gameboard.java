@@ -46,7 +46,7 @@ public class Gameboard extends Subject implements IGameboard{
                 arr[i][rowToPlace] = player;
                 // row = 1 ----- rowToPlace = 5,0 ---- ändra till 1,1 om längst ner i rad 1
                 //alternativt skicka in stylishBoard
-                Notify(player, i + "," + rowToPlace);
+                Notify(counter.getCurrentRound(), player, i + "," + rowToPlace);
                 return true;
             }
         }
@@ -123,6 +123,7 @@ public class Gameboard extends Subject implements IGameboard{
             }
         }
 
+        //Draw
         if (ret.equals(" ")){
                 int markCounter = 1;
                 for (String marker : arr[0]){
@@ -131,7 +132,9 @@ public class Gameboard extends Subject implements IGameboard{
                     }
                     if (markCounter == arr.length) {
                         ret = "Draw";
-                        Notify("DRAW", "Round " + counter.getCurrentRound() + " is a draw. The score is: X " + counter.getScoreX() + "-" + counter.getScoreO() + " O");
+                        Notify(counter.getCurrentRound(),
+                                "DRAW",
+                                "The round is a draw. The score is: X " + counter.getScoreX() + "-" + counter.getScoreO() + " O");
                         counter.setCurrentRound();
                         resetBoard();
                     }
@@ -141,14 +144,18 @@ public class Gameboard extends Subject implements IGameboard{
 
         if(ret.equals("X")){
             counter.setScoreX(counter.getScoreX() + 1);
-            Notify("X", "Wins round " + counter.getCurrentRound() + ". The score is: X " + counter.getScoreX() + "-" + counter.getScoreO() + " O");
+            Notify(counter.getCurrentRound(),
+                    "X",
+                    "Wins this round. The score is: X " + counter.getScoreX() + "-" + counter.getScoreO() + " O");
             counter.setCurrentRound();
             resetBoard();
 
         }
         if(ret.equals("O")){
             counter.setScoreO(counter.getScoreO() + 1);
-            Notify("O", "Wins round " + counter.getCurrentRound() + ". The score is: X " + counter.getScoreX() + "-" + counter.getScoreO() + " O");
+            Notify(counter.getCurrentRound(),
+                    "O",
+                    "Wins this round. The score is: X " + counter.getScoreX() + "-" + counter.getScoreO() + " O");
             counter.setCurrentRound();
             resetBoard();
         }

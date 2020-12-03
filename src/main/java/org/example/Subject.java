@@ -17,9 +17,9 @@ public class Subject {
         observers.remove(o);
     }
 
-    public void Notify(String player, String place){
+    public void Notify(int round, String player, String place){
         for (Observer o : observers){
-            o.update(player, place);
+            o.update(round, player, place);
         }
     }
 
