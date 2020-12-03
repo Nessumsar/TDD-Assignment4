@@ -44,7 +44,7 @@ public class Gameboard extends Subject implements IGameboard{
         for(int i = cols - 1; i >= 0; i--){
             if(arr[i][rowToPlace].equals(" ")){
                 arr[i][rowToPlace] = player;
-                Notify(counter.getCurrentRound(), player,(cols - (i + 1)) + "," + (rowToPlace + 1));
+                Notify(counter.getCurrentRound(), player,(rowToPlace + 1) + "," + (cols - i) );
                 return true;
             }
         }

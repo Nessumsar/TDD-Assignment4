@@ -9,7 +9,7 @@ public class GameboardObserver extends Observer {
     @Override
     public void update(int round, String player, String place) {
         storage.add("Round " + round + " |" + player + " | " + place);
-        System.out.println(player + " | " + place);
+        System.out.println(player + " placed marker on " + place);
     }
 
     @Override
